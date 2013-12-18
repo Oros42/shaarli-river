@@ -21,3 +21,8 @@ define('SHAARLI_API_URL', 'https://nexen.mkdir.fr/shaarli-api/');
 
 // Page title
 define('HEAD_TITLE', 'Shaarli Flux River');
+
+
+// CSS Style
+// define('CSS_STYLE', 'dark_style.css');
+define('CSS_STYLE', 'style.css');
