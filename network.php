@@ -25,9 +25,7 @@ include __DIR__ . '/includes/header.php'; ?>
 <?php endforeach; ?>
 
 <script type="text/javascript">
-$(function() {
-	$('#link-network').addClass('btn-primary');
-});
+document.getElementById('link-network').className+=' btn-primary';
 </script>
 
 <?php include __DIR__ . '/includes/footer.php'; ?>

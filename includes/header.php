@@ -13,7 +13,6 @@
 }else{
 	echo '<link href="./assets/style.css" rel="stylesheet">';
 } ?>
-<script type="text/javascript" src="./assets/jquery-1.8.3.min.js"></script>
 </head>
 <body>
 <div id="page">

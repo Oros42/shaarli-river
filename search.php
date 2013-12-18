@@ -54,10 +54,8 @@ foreach( $entries as $entry ) {
 <?php endif; ?>
 
 <script type="text/javascript">
-$(function() {
-  $('#link-search').addClass('btn-primary');
-  $('#input-search').focus();
-});
+document.getElementById('link-search').className+=' btn-primary';
+document.getElementById('input-search').focus();
 </script>
 
 <?php include __DIR__ . '/includes/footer.php'; ?>

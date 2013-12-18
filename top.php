@@ -95,24 +95,28 @@ include __DIR__ . '/includes/menu.php';
 <div id="entries-column" class="two-column"></div>
 <div class="clear"></div>
 <script type="text/javascript">
-$(function() {
-	$('#link-top').addClass('btn-primary');
-	$('.entry-link').click(function() {
-		$('.entry-link').removeClass('selected');
-		$(this).addClass('selected');
-		var url = $(this).find('a:first').attr('href');
-		$.ajax({ 
-			type: 'GET',
-			url: './discussion.php',
-			data: { 'url': url, 'ajax': 1 },
-			async: false,
-			success: function( html ) {
-				$('#entries-column').html(html);
-		}});
+document.getElementById('link-top').className+=' btn-primary';
 
-		return false;
-	});
-	$('.entry-title:first').click();
-});
+function link_switch() {
+	for (i = 0, len = document.getElementsByClassName('entry-link').length; i < len; i++) {
+		document.getElementsByClassName('entry-link')[i].className='entry-link';
+	}
+	this.className+=' selected';
+	var url = this.children[1].href;
+	var xhr = new XMLHttpRequest();
+	xhr.open('GET', './discussion.php?ajax=1&url='+url);
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4){
+			document.getElementById('entries-column').innerHTML = xhr.responseText;
+		}
+	};
+	xhr.send();
+	return false;
+}
+
+for (i = 0, len = document.getElementsByClassName('entry-link').length; i < len; i++) {
+	document.getElementsByClassName('entry-link')[i].onclick = link_switch;
+}
+document.getElementsByClassName('entry-title')[0].click();
 </script>
 <?php include __DIR__ . '/includes/footer.php'; ?>

@@ -63,6 +63,7 @@ include __DIR__ . '/includes/header.php';
 
 <div id="entries"></div>
 <script type="text/javascript">
+document.getElementById('link-river').className+=' btn-primary';
 
 var id = '';
 var timer = 1000;
@@ -70,62 +71,61 @@ var timer = 1000;
 function river() {
 
 	if( timer > 99 ) {
-
-		$.ajax({ 
-			type: 'GET',
-			url: 'index.php?json=1&id='+id,
-			async: false,
-			dataType: 'json',
-			success: function( json ) {
+		timer=-timer;
+		var xhr = new XMLHttpRequest();
+		xhr.open('GET', 'index.php?json=1&id='+id);
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4){
+				json = JSON.parse(xhr.responseText);
 				if( json.count > 0 ) {
-					if( timer == 1000 ) {
-						$.each(json.entries, function( id, entry ) {
-							$('#entries').prepend(entry.content);
-						});
-					}
-					else {
-			        	$.each(json.entries, function( id, entry ) {
-			        		var node = $(entry.content);
-		        			node.addClass('unread');
+					if( timer == -1000 ) {
+						for (var i = 0, len=json.count; i <len; i++) {
+							document.getElementById('entries').insertAdjacentHTML('afterBegin', json.entries[i].content);
+						};
+					} else {
+						for (var i = 0, len=json.count; i <len; i++) {
+							var node = json.entries[i].content.replace('<div class="entry">', '<div class="entry unread" onmouseover="this.className=\'entry\';count_unread();">');
+							/*
+							// http://stackoverflow.com/questions/3795481/javascript-slidedown-without-jquery
 		        			node.hover(function() {
 		        				$(this).removeClass('unread');
 		        				count_unread();
 		        			});
-			        		node.hide();
-			        		$('#entries').prepend(node);
-			        		node.slideDown();
-						});						
+		        			node.hide();
+		        			*/
+			        		document.getElementById('entries').insertAdjacentHTML('afterBegin', node);
+			        		//node.slideDown();							
+						};				
 					}
 					id = json.id;
 					count_unread();
 				}
-		}});
-
-		timer = 0;		
+				timer = 0;
+			}
+		};
+		xhr.send();
+		
+	} else {
+		if(timer>=0){
+			timer++;
+		}		
+		if( timer < 0 ) {
+			document.getElementById('timer').innerHTML = 'Checking...';
+		} else {
+			document.getElementById('timer').innerHTML = timer;
+		}
 	}
-	else {
-		timer++;
-		if( timer > 99 )
-			$('#timer').text('Checking...');
-		else
-			$('#timer').text(timer);
-	}
-
-	setTimeout('river()', 100);
+	setTimeout(river, 100);
 }
 function count_unread() {
 	var title = "<?php echo HEAD_TITLE; ?>";
-	var unread = $('.unread').size();
+	var unread = document.getElementsByClassName('unread').length;
 	if( unread > 0 ) {
-		$('title').text('('+unread+') '+title);
-	}
-	else {
-		$('title').text(title);
+		document.title='('+unread+') '+title;
+	} else {
+		document.title=title;
 	}
 }
-$(function() {
-	river();
-	$('#link-river').addClass('btn-primary');
-});
+river();
 </script>
 <?php include __DIR__ . '/includes/footer.php'; ?>
