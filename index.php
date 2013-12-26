@@ -3,7 +3,6 @@
 require_once __DIR__ . '/bootstrap.php';
 
 if( isset($_GET['json']) ) {
-
 	$last_id = (isset($_GET['id']) && (int) $_GET['id'] > 0) ? (int) $_GET['id'] : 0;
 
 	$api = new ShaarliApiClient( SHAARLI_API_URL );
@@ -68,8 +67,33 @@ document.getElementById('link-river').className+=' btn-primary';
 var id = '';
 var timer = 1000;
 
-function river() {
+function mark_as_read(e){
+	e.className='entry';
+	e.onmouseover = '';
+	count_unread();
+}
 
+function slideDown (element) {
+	element.className = 'entry unread';
+	var s = element.style;
+	element.hidden=false;
+	var finalheight=element.clientHeight;
+	s.height = '0px';   
+	var y = 0;
+	var tween = function () {
+		y += 10;
+		s.height = y+'px';
+		if(window.scrollY>0){
+			window.scroll(0,window.scrollY+10);
+		}
+		if (y<finalheight) {
+			setTimeout(tween,50);
+		}
+	}
+	tween();
+}
+
+function river() {
 	if( timer > 99 ) {
 		timer=-timer;
 		var xhr = new XMLHttpRequest();
@@ -84,18 +108,18 @@ function river() {
 						};
 					} else {
 						for (var i = 0, len=json.count; i <len; i++) {
-							var node = json.entries[i].content.replace('<div class="entry">', '<div class="entry unread" onmouseover="this.className=\'entry\';count_unread();">');
-							/*
-							// http://stackoverflow.com/questions/3795481/javascript-slidedown-without-jquery
-		        			node.hover(function() {
-		        				$(this).removeClass('unread');
-		        				count_unread();
-		        			});
-		        			node.hide();
-		        			*/
-			        		document.getElementById('entries').insertAdjacentHTML('afterBegin', node);
-			        		//node.slideDown();							
-						};				
+							var node = new DOMParser().parseFromString(json.entries[i].content, 'text/html');
+							for (var e = 0, len2=node.children[0].children[1].children.length; e <len2; e++) {
+								node.children[0].children[1].children[e].className += ' unread hide';
+								node.children[0].children[1].children[e].style.overflow= 'hidden';
+								node.children[0].children[1].children[e].hidden=true;
+								node.children[0].children[1].children[e].setAttribute('onmouseover', 'mark_as_read(this);');
+							}
+							document.getElementById('entries').insertAdjacentHTML('afterBegin', node.children[0].children[1].innerHTML);
+						};
+						for(var i=0, len=document.getElementsByClassName('unread hide').length; i<len; i++){
+							slideDown(document.getElementsByClassName('unread')[i]);
+						}
 					}
 					id = json.id;
 					count_unread();
@@ -103,8 +127,7 @@ function river() {
 				timer = 0;
 			}
 		};
-		xhr.send();
-		
+		xhr.send();		
 	} else {
 		if(timer>=0){
 			timer++;
