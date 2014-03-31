@@ -66,7 +66,7 @@ document.getElementById('link-river').className+=' btn-primary';
 
 var id = '';
 var timer = 1000;
-
+var play=1;
 function mark_as_read(e){
 	e.className='entry';
 	e.onmouseover = '';
@@ -92,53 +92,59 @@ function slideDown (element) {
 	}
 	tween();
 }
-
 function river() {
-	if( timer > 99 ) {
-		timer=-timer;
-		var xhr = new XMLHttpRequest();
-		xhr.open('GET', 'index.php?json=1&id='+id);
-		xhr.onreadystatechange = function(){
-			if(xhr.readyState == 4){
-				json = JSON.parse(xhr.responseText);
-				if( json.count > 0 ) {
-					if( timer == -1000 ) {
-						for (var i = 0, len=json.count; i <len; i++) {
-							document.getElementById('entries').insertAdjacentHTML('afterBegin', json.entries[i].content);
-						};
-					} else {
-						for (var i = 0, len=json.count; i <len; i++) {
-							var node = new DOMParser().parseFromString(json.entries[i].content, 'text/html');
-							for (var e = 0, len2=node.children[0].children[1].children.length; e <len2; e++) {
-								node.children[0].children[1].children[e].className += ' unread hide';
-								node.children[0].children[1].children[e].style.overflow= 'hidden';
-								node.children[0].children[1].children[e].hidden=true;
-								node.children[0].children[1].children[e].setAttribute('onmouseover', 'mark_as_read(this);');
+	if(play>0){
+		if( timer > 99 ) {
+			timer=-timer;
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET', 'index.php?json=1&id='+id);
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4){
+					try{
+						json = JSON.parse(xhr.responseText);
+						if( json.count > 0 ) {
+							if( timer == -1000 ) {
+								for (var i = 0, len=json.count; i <len; i++) {
+									document.getElementById('entries').insertAdjacentHTML('afterBegin', json.entries[i].content);
+								};
+							} else {
+								for (var i = 0, len=json.count; i <len; i++) {
+									var node = new DOMParser().parseFromString(json.entries[i].content, 'text/html');
+									for (var e = 0, len2=node.children[0].children[1].children.length; e <len2; e++) {
+										node.children[0].children[1].children[e].className += ' unread hide';
+										node.children[0].children[1].children[e].style.overflow= 'hidden';
+										node.children[0].children[1].children[e].hidden=true;
+										node.children[0].children[1].children[e].setAttribute('onmouseover', 'mark_as_read(this);');
+									}
+									document.getElementById('entries').insertAdjacentHTML('afterBegin', node.children[0].children[1].innerHTML);
+								};
+								for(var i=0, len=document.getElementsByClassName('unread hide').length; i<len; i++){
+									slideDown(document.getElementsByClassName('unread')[i]);
+								}
 							}
-							document.getElementById('entries').insertAdjacentHTML('afterBegin', node.children[0].children[1].innerHTML);
-						};
-						for(var i=0, len=document.getElementsByClassName('unread hide').length; i<len; i++){
-							slideDown(document.getElementsByClassName('unread')[i]);
+							id = json.id;
+							count_unread();
 						}
+						document.getElementById('error').innerHTML = '';
+					}catch(e){
+						document.getElementById('error').innerHTML = '&nbsp; Network error ! ';
 					}
-					id = json.id;
-					count_unread();
+					timer = 0;
 				}
-				timer = 0;
-			}
-		};
-		xhr.send();		
-	} else {
-		if(timer>=0){
-			timer++;
-		}		
-		if( timer < 0 ) {
-			document.getElementById('timer').innerHTML = 'Checking...';
+			};
+			xhr.send();		
 		} else {
-			document.getElementById('timer').innerHTML = timer;
+			if(timer>=0){
+				timer++;
+			}		
+			if( timer < 0 ) {
+				document.getElementById('timer').innerHTML = 'Checking...';
+			} else {
+				document.getElementById('timer').innerHTML = timer;
+			}
 		}
+		setTimeout(river, 100);
 	}
-	setTimeout(river, 100);
 }
 function count_unread() {
 	var title = "<?php echo HEAD_TITLE; ?>";
@@ -149,6 +155,19 @@ function count_unread() {
 		document.title=title;
 	}
 }
+function play_stop(){
+	if(play){
+		document.getElementById('play_stop').innerHTML="▶";
+		document.getElementById('play_stop').title="Play";
+		play=0;
+	}else{
+		document.getElementById('play_stop').innerHTML="||";
+		document.getElementById('play_stop').title="Stop";
+		play=1;
+		river();
+	}	
+}
+document.getElementById('play_stop').style.display="";
 river();
 </script>
 <?php include __DIR__ . '/includes/footer.php'; ?>

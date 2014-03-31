@@ -1,3 +1,4 @@
+@import url("bootstrap.min.css")
 * {
 	margin: 0;
 	padding: 0;
@@ -25,6 +26,9 @@ h1 {
 	padding: 15px 20px;
 }
 #timer {
+	float: right;
+}
+.right {
 	float: right;
 }
 #footer {

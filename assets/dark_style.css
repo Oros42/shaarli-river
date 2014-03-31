@@ -24,6 +24,9 @@ h1 {
 #timer {
 	float: right;
 }
+.right {
+	float: right;
+}
 #footer {
 	margin-top: 15px;
 	text-align: center;
