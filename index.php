@@ -164,7 +164,7 @@ function play_stop(){
 		document.getElementById('play_stop').innerHTML="||";
 		document.getElementById('play_stop').title="Stop";
 		play=1;
-		timer = 1000;
+		timer = 100;
 		river();
 	}	
 }
