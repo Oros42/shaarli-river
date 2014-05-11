@@ -11,7 +11,11 @@
 	padding: 0;
 }
 body {
-	background-color: #333;
+	font-size: 14px;
+    width:100%;
+    height:100%;    
+    background-size: cover;
+    background-color: #333;
 }
 a {
 	color: #0084b4;
@@ -20,7 +24,9 @@ h1 {
 	margin: 0 0 15px 0;
 }
 #page {
+	margin: auto;
 	width: 100%;
+	background-color: #fff;
 	padding: 0;
 }
 #timer {
@@ -45,6 +51,7 @@ h1 {
 	padding: 10px;
 	border-right: 0px none;
 	border-left: 0px none;
+	border-top: 1px solid #e8e8e8;	
 }
 .entry:hover {
 	background-color: #F5F5F5;
