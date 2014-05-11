@@ -1,0 +1,103 @@
+/*
+* @name          Shaarli River - dark
+* @namespace     http://userstyles.org
+* @description	 A dark version of Shaarli river, cool for night reading and oled smartphones !
+* @author        tmos
+* @homepage      http://userstyles.org/styles/101363
+*/
+@import url("../assets/bootstrap.min.css")
+* {
+	margin: 0;
+	padding: 0;
+}
+body {
+	color: #FCFCFC;
+	font-size: 16px;
+}
+a {
+	color: #1261E4;
+}
+h1 {
+	margin: 0 0 15px 0;
+}
+#page {
+	background-color: #222222;
+}
+#timer {
+	float: right;
+}
+.right {
+	float: right;
+}
+#footer {
+	margin-top: 15px;
+	text-align: center;
+}
+.menu {
+	margin: 0 0 15px 0;
+}
+.favicon {
+	height: 16px;
+	width: 16px;
+	margin-right: 2px;
+}
+.entry {
+	border-top: 1px solid #000;
+}
+.entry:hover {
+	background-color: #000;
+}
+.entry-shaarli {
+	color: #FFF!important;
+}
+.entry-title {
+	font-weight: bold;
+}
+.entry-timestamp {
+	font-size: 12px;
+	color: #999;
+	float: right;
+}
+.entry-counter {
+	padding: 3px 10px;
+	margin: 0 5px 0 0;
+	float: left;
+	background-color: #0084b4;
+	color: #fff;
+	border-radius: 10px;
+}
+.unread {
+	border-left: 3px solid #0084b4;
+}
+.two-column {
+	width: 50%;
+	float: left;
+}
+.entry-link {
+	padding: 5px;
+	margin: 1px 2px 1px 0;
+	cursor: pointer;
+}
+.entry-link a {
+	text-decoration: none;
+}
+.entry-link.selected {
+	margin: 0;
+	border-top: 1px solid #adadad;
+	border-bottom: 1px solid #adadad;
+	border-left: 1px solid #adadad;
+	border-radius: 4px;
+	background-color: #F5F5F5;
+}
+.clear {
+	clear: both;
+}
+.btn-default {
+	color: #FCFCFC;
+	background-color: #333;
+	border-color: #000;
+}
+.btn:hover{
+	background-color: #000;
+	color: #FCFCFC;
+}
