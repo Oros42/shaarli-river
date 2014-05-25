@@ -6,7 +6,7 @@
 	<a class="btn btn-default" target="_blank" href="https://nexen.mkdir.fr/shaarli-tv/"><span class="glyphicon glyphicon-film"></span> TV</a>
 	<a class="btn btn-default" target="_blank" href="https://shaarlimages.net/"><span class="glyphicon glyphicon-picture"></span> Pictures</a>
 	<a class="btn btn-default" target="_blank" href="https://shaarli.fr/"><span class="glyphicon glyphicon-retweet"></span> Discussions</a>
-	<a class="btn btn-default" target="_blank" href="https://shaarli.fr/jappix/?r=shaarli@conference.dukgo.com"><span class="glyphicon glyphicon-comment"></span> Chat</a>
+	<a class="btn btn-default" target="_blank" href="https://shaarli.fr/jappix-1.0.7/?r=shaarli@conference.dukgo.com"><span class="glyphicon glyphicon-comment"></span> Chat</a>
 	<a id="link-infos" class="btn btn-default" href="./infos.php"><span class="glyphicon glyphicon-info-sign"></span> Infos</a>
 	<a id="link-themes" class="btn btn-default" href="./themes.php"><span class="glyphicon glyphicon-wrench"></span> Themes</a>
 </div>
