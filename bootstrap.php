@@ -12,6 +12,6 @@ function get_favicon_url( $feed_id ) {
 
 	if( $feed_id > 0 ) {
 
-		return SHAARLI_API_URL . 'getfavicon?id=' . $feed_id;
+		return SHAARLI_API_URL_FAV . 'getfavicon?id=' . $feed_id;
 	}
 }

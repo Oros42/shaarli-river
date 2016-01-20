@@ -38,7 +38,6 @@ class ShaarliApiClient {
 		);
 
 		$context = stream_context_create($options);
-
 		$content = @file_get_contents($url, false, $context);
 
 		if( !empty($content) ) {
