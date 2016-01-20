@@ -4,6 +4,7 @@
 <title><?php echo HEAD_TITLE; ?></title>
 <link href="./favicon.ico" rel="shortcut icon" type="image/x-icon" />
 <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <?php if(isset($header_rss)): ?>
 <link rel="alternate" type="application/rss+xml" href="<?php echo $header_rss; ?>" title="RSS Feed" />
 <?php endif; ?>
