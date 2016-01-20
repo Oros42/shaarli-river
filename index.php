@@ -6,37 +6,46 @@ if( isset($_GET['json']) ) {
 	$last_id = (isset($_GET['id']) && (int) $_GET['id'] > 0) ? (int) $_GET['id'] : 0;
 
 	$api = new ShaarliApiClient( SHAARLI_API_URL );
-	$rows = $api->latest();
-	$rows = array_reverse($rows);
-
+	try{
+		$rows = $api->latest();
+	}catch(Exception $e){
+        	header('Cache-Control: no-cache, must-revalidate');
+	        header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+        	header('Content-type: application/json');
+	        echo "Networking error :-(";
+	        exit();
+	}
 	$json = array();
 
 	$json['id'] = 0;
 	$json['entries'] = array();
 
-	foreach( $rows as $row ) {
+	if ($rows != null){
+		$rows = array_reverse($rows);
+		foreach( $rows as $row ) {
 
-		if( $row->id > $last_id ) {
+			if( $row->id > $last_id ) {
 
-			$entry = array();
+				$entry = array();
 
-			$content = array();
-			$content[] = '<div class="entry">';
-			$content[] = '<div class="entry-timestamp">' . date('d/m/Y H:i:s', strtotime($row->date)) . '</div>';			
-			$content[] = '<a class="entry-shaarli" target="_blank" href="' . @$row->feed->link . '">';
-			$content[] = '<img class="favicon" src="' . get_favicon_url($row->feed->id)  .'" />' . $row->feed->title . '</a> ';
-			$content[] = '<a class="entry-title" target="_blank" href="' . $row->permalink . '">' . $row->title . '</a>';
-			$content[] = '<div class="entry-content">' . $row->content . '</div>';
-			$content[] = '</div>';
+				$content = array();
+				$content[] = '<div class="entry">';
+				$content[] = '<div class="entry-timestamp">' . date('d/m/Y H:i:s', strtotime($row->date)) . '</div>';			
+				$content[] = '<a class="entry-shaarli" target="_blank" href="' . @$row->feed->link . '">';
+				$content[] = '<img class="favicon" src="' . get_favicon_url($row->feed->id)  .'" />' . $row->feed->title . '</a> ';
+				$content[] = '<a class="entry-title" target="_blank" href="' . $row->permalink . '">' . $row->title . '</a>';
+				$content[] = '<div class="entry-content">' . $row->content . '</div>';
+				$content[] = '</div>';
 
-			$entry['content'] = implode($content);
-			unset($content);
+				$entry['content'] = implode($content);
+				unset($content);
 
-			$json['entries'][] = $entry;
-		}
+				$json['entries'][] = $entry;
+			}
 
-		if( $row->id > $json['id'] ) { // Max id
-			$json['id'] = $row->id;
+			if( $row->id > $json['id'] ) { // Max id
+				$json['id'] = $row->id;
+			}
 		}
 	}
 
