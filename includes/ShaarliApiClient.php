@@ -34,7 +34,10 @@ class ShaarliApiClient {
 		    'method' => "GET",
 		    'header' => "Accept-language: fr\r\n" .
 		              "User-Agent: shaarli-api-client\r\n"
-		  )
+		  ),
+		 'ssl' => array(
+			'CN_match' => 'ecirtam.net'
+		 )
 		);
 
 		$context = stream_context_create($options);
@@ -44,7 +47,7 @@ class ShaarliApiClient {
 
 			$content = json_decode($content);
 
-			return $content;		
+			return $content;
 		}
 		else {
 
