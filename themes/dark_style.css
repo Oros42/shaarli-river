@@ -92,6 +92,13 @@ h1 {
 	border-radius: 4px;
 	background-color: #F5F5F5;
 }
+
+.entry-content img {
+	max-width: 66%;
+	margin: 0 auto;
+	display: block;
+}
+
 .clear {
 	clear: both;
 }
