@@ -20,7 +20,7 @@ define('SHAARLI_RIVER_URL', '');
 // You can host your own API, see: https://github.com/mknexen/shaarli-api
 define('SHAARLI_API_URL', 'https://shaarli-api.ecirtam.net/');// it better to use an API on the same domain as the river
 
-//define('SHAARLI_API_URL_FAV', '/shaarli-api/');
+define('SHAARLI_API_URL_FAV', 'https://shaarli-api.ecirtam.net/');// it better to use an API on the same domain as the river
 
 // Page title
 define('HEAD_TITLE', 'Shaarli Flux River');
