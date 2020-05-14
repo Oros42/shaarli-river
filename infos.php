@@ -21,22 +21,23 @@ include __DIR__ . '/includes/menu.php';
 	<ul>
 		<li>Pour l'ajout ou le retrait d'un shaarli, contactez Oros</li>
 		<li>via shaarlirss[@]ecirtam.net</li>
-		<li>ou par le salon de discussions XMPP (shaarli@conference.leetchee.fr)</li>
 	</ul>
 </div>
 
 <div class="entry">
 	<h2>Projets autour de shaarli</h2>
 	<ul>
-		<li><a href="https://github.com/mknexen/shaarli-river">Shaarli-river (github)</a></li>
-		<li><a href="http://lite.framapad.org/p/hBYMvk4vwG">Shaarli's connection</a></li>
-		<li><a href="http://shaarli.fr/">Shaarlo</a></li>
+		<li><a href="https://github.com/shaarli">Shaarli (github)</a></li>
+		<li><a href="https://github.com/Oros42/shaarli-api">Shaarli-api (github)</a></li>
+		<li><a href="https://github.com/Oros42/shaarli-river">Shaarli-river (github)</a></li>
 		<li><a href="https://github.com/Oros42/find_shaarlis">Où sont les shaarlis ?</a></li>
+		<li><a href="https://www.shaarlo.fr/">www.shaarlo.fr</a></li>
 	</ul>
 	<h2>Autres Shaarli-river</h2>
 	<ul>
 		<li><a href="https://river.libox.fr/">https://river.libox.fr/</a></li>
 		<li><a href="http://petitetremalfaisant.eu/styx/">http://petitetremalfaisant.eu/styx/</a></li>
+
 	</ul>
 </div>
 
