@@ -15,37 +15,25 @@ if( isset($_GET['do']) && $_GET['do'] == 'rss' ) {
 	$feed_entry = new stdClass();
 
 	if( isset($data->entries) && !empty($data->entries) ) {
-
-		$content = array();
-		$content[] = '<ul>';
-
+		$content = '<ul>';
 		foreach( $data->entries as $link ) {
-
-			$content[] = '<li>[';
-			$content[] = $link->count;
-			$content[] = '] <a href="';
-			$content[] = $link->permalink;
-			$content[] = '">';
-			$content[] = $link->title;
-			$content[] = '</a>';
-			$content[] = ' (<a href="';
-			$content[] = SHAARLI_RIVER_URL;
-			$content[] = 'discussion.php?url=';
-			$content[] = urlencode($link->permalink);
-			$content[] = '">Discussion</a>)';
-			$content[] = '</li>';
+			$content .= sprintf(
+				'<li>[%d] <a href="%s">%s</a> (<a href="%sdiscussion.php?url=%s">Discussion</a>)</li>',
+				$link->count,
+				$link->permalink,
+				$link->title,
+				SHAARLI_RIVER_URL,
+				urlencode($link->permalink)
+			);
 		}
-
-		$content[] = '</ul>';
-		$content = implode($content);
-		
+		$content .= '</ul>';	
 		$feed_entry->title = 'Top du ' . date('d/m/Y', strtotime($data->date));
 		$feed_entry->content = $content;
 		$feed_entry->date = $data->date;
 	}
 
 	$feed = array(
-		$feed_entry,
+		$feed_entry
 	);
 
 	create_rss( $feed, array(
