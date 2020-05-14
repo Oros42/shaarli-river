@@ -10,8 +10,8 @@ shuffle($feeds);
 include __DIR__ . '/includes/header.php'; ?>
 
 <div style="float:right;">
-	<a class="btn btn-default" target="_blank" href="<?php echo SHAARLI_API_URL; ?>feeds?pretty=1">JSON</a>
-	<a class="btn btn-default" target="_blank" href="<?php echo SHAARLI_API_URL; ?>feeds?format=opml">OPML</a>
+	<a class="btn btn-default" target="_blank" href="<?php echo SHAARLI_API_URL_PUBLIC; ?>feeds?pretty=1">JSON</a>
+	<a class="btn btn-default" target="_blank" href="<?php echo SHAARLI_API_URL_PUBLIC; ?>feeds?format=opml">OPML</a>
 </div>
 
 <?php include __DIR__ . '/includes/menu.php'; ?>

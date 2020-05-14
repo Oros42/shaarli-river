@@ -14,13 +14,22 @@
 /**
  * Configuration
  */
+// for /top.php?do=rss
+//define('SHAARLI_RIVER_URL', 'https://ecirtam.net/shaarlirss/');
 define('SHAARLI_RIVER_URL', '');
 
 // Shaarli API url
-// You can host your own API, see: https://github.com/mknexen/shaarli-api
-define('SHAARLI_API_URL', 'https://shaarli-api.ecirtam.net/');// it better to use an API on the same domain as the river
+// You can host your own API, see: https://github.com/Oros42/shaarli-api
 
-define('SHAARLI_API_URL_FAV', 'https://shaarli-api.ecirtam.net/');// it better to use an API on the same domain as the river
+// Private URL of the API
+// example :
+//define('SHAARLI_API_URL', 'https://127.0.0.1/shaarli-api/');
+define('SHAARLI_API_URL', 'https://shaarli-api.ecirtam.net/');
+
+// Public URL of the API
+// example :
+//define('SHAARLI_API_URL_PUBLIC', '/shaarli-api/');
+define('SHAARLI_API_URL_PUBLIC', 'https://shaarli-api.ecirtam.net/');
 
 // Page title
 define('HEAD_TITLE', 'Shaarli Flux River');

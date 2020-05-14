@@ -1,4 +1,6 @@
 cache/*
+/favicons/*
+!/favicons/.gitkeep
 *.log
 *.zip
 *.sh

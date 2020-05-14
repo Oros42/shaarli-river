@@ -58,13 +58,13 @@ if( isset($_GET['json']) ) {
 	exit();
 }
 
-$header_rss = SHAARLI_API_URL . 'latest?format=rss';
+$header_rss = SHAARLI_API_URL_PUBLIC . 'latest?format=rss';
 include __DIR__ . '/includes/header.php';
 ?>
 
 <div style="float:right;">
-	<a class="btn btn-default" target="_blank" href="<?php echo SHAARLI_API_URL; ?>latest?pretty=1">JSON</a>
-	<a class="btn btn-default" target="_blank" href="<?php echo SHAARLI_API_URL; ?>latest?format=rss">RSS</a>
+	<a class="btn btn-default" target="_blank" href="<?php echo SHAARLI_API_URL_PUBLIC; ?>latest?pretty=1">JSON</a>
+	<a class="btn btn-default" target="_blank" href="<?php echo SHAARLI_API_URL_PUBLIC; ?>latest?format=rss">RSS</a>
 </div>
 
 <?php include __DIR__ . '/includes/menu.php'; ?>

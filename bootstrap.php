@@ -9,9 +9,14 @@ require_once __DIR__ . '/includes/ShaarliApiClient.php';
 require_once $configFile;
 
 function get_favicon_url( $feed_id ) {
-
+	$feed_id = (int) $feed_id;
 	if( $feed_id > 0 ) {
-
-		return SHAARLI_API_URL_FAV . 'getfavicon?id=' . $feed_id;
+		$faviconName = sprintf("favicons/fav_%d.png", $feed_id);
+		$faviconNameDir = __DIR__.'/'.$faviconName;
+		if (!is_file($faviconNameDir) || (time() - filectime($faviconNameDir) > 630000) ) { //630000s == 7day of cache
+			$favicon = @file_get_contents(sprintf('%sgetfavicon?id=%d', SHAARLI_API_URL, $feed_id));
+			file_put_contents($faviconNameDir, $favicon);
+		}
+		return $faviconName;
 	}
 }

@@ -23,8 +23,8 @@ include __DIR__ . '/includes/menu.php';
 
 <?php if( isset($entries) ): ?>
 <div style="float:right;">
-	<a class="btn btn-default" target="_blank" href="<?php echo SHAARLI_API_URL; ?>search?pretty=1&q=<?php echo $searchterm; ?>">JSON</a>
-	<a class="btn btn-default" target="_blank" href="<?php echo SHAARLI_API_URL; ?>search?q=<?php echo $searchterm; ?>&format=rss">RSS</a>
+	<a class="btn btn-default" target="_blank" href="<?php echo SHAARLI_API_URL_PUBLIC; ?>search?pretty=1&q=<?php echo $searchterm; ?>">JSON</a>
+	<a class="btn btn-default" target="_blank" href="<?php echo SHAARLI_API_URL_PUBLIC; ?>search?q=<?php echo $searchterm; ?>&format=rss">RSS</a>
 </div>
 <?php endif; ?>
 
