@@ -20,3 +20,16 @@ function get_favicon_url( $feed_id ) {
 		return $faviconName;
 	}
 }
+
+function makeCategoryLink($c) {
+	$categories = explode(',', $c);
+	foreach ($categories as $key => $value) {
+		$tag = trim($value);
+		$categories[$key] = sprintf(
+			'<a href="search.php?c=1&q=%s">%s</a>',
+			$tag,
+			$tag
+		);
+	}
+	return implode(', ', $categories);
+}

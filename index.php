@@ -9,11 +9,11 @@ if( isset($_GET['json']) ) {
 	try{
 		$rows = $api->latest();
 	}catch(Exception $e){
-        	header('Cache-Control: no-cache, must-revalidate');
-	        header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-        	header('Content-type: application/json');
-	        echo "Networking error :-(";
-	        exit();
+		header('Cache-Control: no-cache, must-revalidate');
+		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+		header('Content-type: application/json');
+		echo "Networking error :-(";
+		exit();
 	}
 	$json = array();
 
@@ -23,24 +23,27 @@ if( isset($_GET['json']) ) {
 	if ($rows != null){
 		$rows = array_reverse($rows);
 		foreach( $rows as $row ) {
-
 			if( $row->id > $last_id ) {
-
-				$entry = array();
-
-				$content = array();
-				$content[] = '<div class="entry">';
-				$content[] = '<div class="entry-timestamp">' . date('d/m/Y H:i:s', strtotime($row->date)) . '</div>';			
-				$content[] = '<a class="entry-shaarli" target="_blank" href="' . @$row->feed->link . '">';
-				$content[] = '<img class="favicon" src="' . get_favicon_url($row->feed->id)  .'" />' . $row->feed->title . '</a> ';
-				$content[] = '<a class="entry-title" target="_blank" href="' . $row->permalink . '">' . $row->title . '</a>';
-				$content[] = '<div class="entry-content">' . $row->content . '</div>';
-				$content[] = '</div>';
-
-				$entry['content'] = implode($content);
-				unset($content);
-
-				$json['entries'][] = $entry;
+				$json['entries'][] = array(
+					'content' => sprintf(
+						'<div class="entry">'
+						.'<div class="entry-timestamp">%s</div>'
+						.'<a class="entry-shaarli" target="_blank" href="%s">'
+						.'<img class="favicon" src="%s" />%s</a> '
+						.'<a class="entry-title" target="_blank" href="%s">%s</a>'
+						.'<div class="entry-content">%s</div>'
+						.'<div class="entry-categories">%s</div>'
+						.'</div>',
+						date('d/m/Y H:i:s', strtotime($row->date)),
+						@$row->feed->link,
+						get_favicon_url($row->feed->id),
+						$row->feed->title,
+						$row->permalink,
+						$row->title,
+						$row->content,
+						makeCategoryLink($row->categories)
+					)
+				);
 			}
 
 			if( $row->id > $json['id'] ) { // Max id

@@ -2,6 +2,8 @@
 
 require_once __DIR__ . '/bootstrap.php';
 
+$searchCategory = isset($_GET['c']) && $_GET['c'] == 1;
+
 if( isset($_GET['q']) && !empty($_GET['q']) ) {
 
 	// Sanitize input
@@ -13,7 +15,11 @@ if( isset($_GET['q']) && !empty($_GET['q']) ) {
 	$searchterm = sanitize($_GET['q']);
 
 	$api = new ShaarliApiClient( SHAARLI_API_URL );
-	$entries = $api->search( $searchterm );
+	if ($searchCategory) {
+		$entries = $api->search( $searchterm, array('c'=>'1') );
+	} else {
+		$entries = $api->search( $searchterm );
+	}
 }
 
 include __DIR__ . '/includes/header.php';
@@ -29,7 +35,14 @@ include __DIR__ . '/includes/menu.php';
 <?php endif; ?>
 
 <form class="form-inline" role="form">
-  <input id="input-search" class="form-control" name="q" value="<?php if(isset($searchterm)) echo $searchterm; ?>" style="width:60%;"/>
+  <div class="form-group col-sm-6">
+    <div class="input-group">
+        <input type="text" class="form-control" name="q" value="<?php if(isset($searchterm)) echo $searchterm; ?>" id="input-search" placeholder="search"/>
+      	<label class="input-group-addon" for="search-category" id="search-category" >
+	  		<input type="checkbox" name="c" value="1"<?php echo $searchCategory?' checked="checked"':''; ?>> tag?
+        </label>
+    </div>
+  </div>
   <button type="submit" class="btn btn-success">Ok</button>
 </form>
 <br />
