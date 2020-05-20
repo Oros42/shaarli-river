@@ -118,3 +118,10 @@ h1 {
 #search-category{
     color:black;
 }
+.entry-categories{
+	font-size: 12px;
+	color: #999;
+}
+.entry-categories a{
+	color: #999;
+}
