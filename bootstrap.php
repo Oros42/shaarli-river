@@ -15,7 +15,9 @@ function get_favicon_url( $feed_id ) {
 		$faviconNameDir = __DIR__.'/'.$faviconName;
 		if (!is_file($faviconNameDir) || (time() - filectime($faviconNameDir) > 630000) ) { //630000s == 7day of cache
 			$favicon = @file_get_contents(sprintf('%sgetfavicon?id=%d', SHAARLI_API_URL, $feed_id));
-			file_put_contents($faviconNameDir, $favicon);
+			if (!empty($favicon)) {
+				file_put_contents($faviconNameDir, $favicon);
+			}
 		}
 		return $faviconName;
 	}
