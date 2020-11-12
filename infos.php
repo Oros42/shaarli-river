@@ -40,6 +40,20 @@ include __DIR__ . '/includes/menu.php';
 
 	</ul>
 </div>
+<div class="entry">
+	<h2>Shaarli API</h2>
+	Code source <a href="https://github.com/Oros42/shaarli-api">https://github.com/Oros42/shaarli-api</a><br>
+	URLs :<br>
+	<ul>
+		<li><a href="https://ecirtam.net/shaarli-api/">https://ecirtam.net/shaarli-api/</a>
+		<li><a href="https://shaarli-api.ecirtam.net/">https://shaarli-api.ecirtam.net/</a>
+		<li><a href="https://ecirtamno7a6cynx.onion/shaarli-api/">https://ecirtamno7a6cynx.onion/shaarli-api/</a>
+	</ul>
+	<h3>Récupérer le backup d'un shaarli</h3>
+	<code>&lt;URL_API&gt;/feed?id=&lt;ID&gt;&format=html&full=1</code><br>
+	Exemple :<br>
+	https://ecirtam.net/shaarli-api/feed?id=151&format=html&full=1<br>
+</div>
 
 <script type="text/javascript">
 document.getElementById('link-infos').className+=' btn-primary';
